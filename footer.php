@@ -1,0 +1,1 @@
+<div class="flex fixed bottom-0 left-0 w-full h-10 items-center bg-neutral-200 justify-center text-md">Made with <span class='my-4'><img src="asset/love.png" class="h-5"></span>by Aldrich</div>
