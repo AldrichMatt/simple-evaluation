@@ -1,5 +1,7 @@
 <?php
-require "autoload.php";
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +20,7 @@ require "autoload.php";
 
     <!-- Collapsible navigation container -->
     <div
-      class="flex flex-grow flex-col items_start lg:items-center md:items-center lg:flex-row md:flex-row lg:!flex lg:basis-auto"
+      class="flex flex-grow flex-col lg:items-center md:items-center lg:flex-row md:flex-row lg:!flex lg:basis-auto"
       id="navbarSupportedContent1"
       data-te-collapse-item>
       <!-- Logo -->
@@ -40,7 +42,7 @@ require "autoload.php";
           <!-- Dashboard link -->
           <a
             class="text-neutral-300 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none text-neutral-200 hover:text-neutral-300 focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 [&.active]:text-zinc-400"
-            href="index.php"
+            href="dashboard.php"
             data-te-nav-link-ref
             >Dashboard</a
           >
@@ -74,7 +76,22 @@ require "autoload.php";
         </li>
       </ul>
     </div>
-    </div>  
+    </div>
+    <div class="relative flex items-center text-neutral-300 mx-8"> 
+    <ul
+        class="list-style-none mr-auto flex flex-col pl-0 md:flex-row lg:flex-row"
+        data-te-navbar-nav-ref>
+        <li class="mb-4 lg:mb-0 lg:pr-2 md:mb-0 md:pr-2" data-te-nav-item-ref>
+          <!-- Dashboard link -->
+          <a
+            class="text-neutral-300 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none text-neutral-200 hover:text-neutral-300 focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 [&.active]:text-zinc-400"
+            href="Controller.php/logout"
+            data-te-nav-link-ref
+            >Logout</a
+          >
+        </li>
+    </ul>
+    </div>
   </div>
 </nav>
 </body>
