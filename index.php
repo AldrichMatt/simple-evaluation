@@ -1,6 +1,9 @@
 <?php
 $title = "Login";
 $status = '';
+require_once("Controller.php");
+$controller = new Controller();
+$controller->verifyUser();
 include "login-layout.php";
 if(isset($_SESSION['status'])){
   if($_SESSION['status'] == 'authfail'){

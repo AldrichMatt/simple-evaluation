@@ -2,6 +2,9 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+$data = $_SESSION['data'];
+// var_dump($data);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +12,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <title><?=$title;?></title>
 </head>
 <body>
@@ -45,9 +49,10 @@ if (session_status() == PHP_SESSION_NONE) {
             href="dashboard.php"
             data-te-nav-link-ref
             >Dashboard</a
-          >
+            >
         </li>
-        <!-- Team link -->
+            <?php if($data['pic']){
+              echo '
         <li class="mb-4 lg:mb-0 lg:pr-2 md:mb-0 md:pr-2" data-te-nav-item-ref>
           <a
             class="text-neutral-300 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none text-neutral-200 hover:text-neutral-300 focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 [&.active]:text-neutral-400"
@@ -65,16 +70,24 @@ if (session_status() == PHP_SESSION_NONE) {
             >Volunteers</a
           >
         </li>
-        <!-- Evaluation link -->
+        <!-- Service link -->
         <li class="mb-4 lg:mb-0 lg:pr-2 md:mb-0 md:pr-2" data-te-nav-item-ref>
           <a
             class="text-neutral-300 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none text-neutral-200 hover:text-neutral-300 focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 [&.active]:text-neutral-400"
-            href="evaluation.php"
+            href="service.php"
             data-te-nav-link-ref
-            >Evaluation</a
+            >Service</a
           >
         </li>
-      </ul>
+        ';}?><?php if($data['crew_chief']){echo'<li class="mb-4 lg:mb-0 lg:pr-2 md:mb-0 md:pr-2" data-te-nav-item-ref>
+            <a
+              class="text-neutral-300 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none text-neutral-200 hover:text-neutral-300 focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 [&.active]:text-neutral-400"
+              href="evaluation.php"
+              data-te-nav-link-ref
+              >Evaluation</a
+            >
+          </li>
+        ';}?></ul>
     </div>
     </div>
     <div class="relative flex items-center text-neutral-300 mx-8"> 
