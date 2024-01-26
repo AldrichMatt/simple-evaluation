@@ -29,24 +29,25 @@ require "autoload.php";
         global $model;
         $nij = htmlspecialchars($_POST['nij']);
         $volunteer = $model->get_where('volunteer', 'nij', '=', $nij);
-        // $team = $model->get_all_where('team', 'id', '=', $volunteer['team_id']);
-
-
-        $data=[
-            "full_name" => $volunteer['full_name'],
-            "team_id" => $volunteer['team_id'],
-            "crew_chief" => $volunteer['crew_chief'],
-            "pic" => $volunteer['pic']
-        ];
-
-        if($volunteer['nij'] == $nij){
+        
+        if($volunteer == null){
+             $_SESSION['status'] = 'authfail';
+            header("Location: ".$path."index.php");
+        }
+        else{if($volunteer['nij'] == $nij){
+            $data=[
+                "full_name" => $volunteer['full_name'],
+                "team_id" => $volunteer['team_id'],
+                "crew_chief" => $volunteer['crew_chief'],
+                "pic" => $volunteer['pic']
+            ];
             $_SESSION['data'] = $data;
             $_SESSION['status'] = 'authsuccess';
             header("Location: ".$path."dashboard.php");
         }else{
             $_SESSION['status'] = 'authfail';
             header("Location: ".$path."index.php");
-        }
+        }}
     }
 
     public function verifyUser(){
@@ -144,19 +145,26 @@ require "autoload.php";
         return $model->get_where("evaluation","id", '=', $evaluation_id);
     }
     
-    public function getTeamMember($team_id = 0){
+    public function getTeamMember($team_id = null){
         global $model;
-        if($team_id != 0){
+        if($team_id != null){
             $team_data = $model->get_all_where("volunteer", "team_id", "=", $team_id);
             $_SESSION['team_data'] = $team_data;
             return $team_data;
         } else{
             $_SESSION['team_data'] = '';
             $team_id = $_POST['team_id'];
-            $team_data = $model->get_all_where("volunteer", "team_id", "=", $team_id);
-            $_SESSION['team_data'] = $team_data;
-            unset($_POST['team_id']);
-            echo json_encode($team_data);
+            if($team_id == '0'){
+                $team_data = $model->get("volunteer");
+                $_SESSION['team_data'] = $team_data;
+                unset($_POST['team_id']);
+                echo json_encode($team_data);
+            }else{
+                $team_data = $model->get_all_where("volunteer", "team_id", "=", $team_id);
+                // $_SESSION['team_data'] = $team_data;
+                unset($_POST['team_id']);
+                echo json_encode($team_data);
+            }
         }
         
     }

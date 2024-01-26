@@ -8,30 +8,27 @@ $controller->verifyRoleCC();
 $date = $controller->getDate();
 include "layout.php";
 $data= $_SESSION['data'];
-if(preg_match('/,/i',$data['team_id'])){
-  @$team_member = $_SESSION['team_data'];
-}else{
-  $team_member = $controller->getTeamMember($data['team_id']);
-}
+@$team_member = $_SESSION['team_data'];
+unset($_SESSION['team_data']);
+// var_dump($team_member);
 
 $services = $controller->getService();
 ?>
 <script>
     // $('document').ready(getTeamMember());
-    $('window').on('load', getTeamMember());
+    // $('window').on('load', getTeamMember());
     function getTeamMember(){
       var team_id = $('#team_id').val();
       console.log(team_id);
       $.ajax({
         method : "POST",
-        url : "<?=$path?>/Controller.php/getTeamMember",
+        url : "<?=$path?>Controller.php/getTeamMember",
         dataType : "json",
         data : {
           team_id : team_id
         },
         complete: function(data){
-            $('#form').load(location.href + ' #form','200');
-
+            $('#form').load(location.href + ' #form','10');
         }
       })
     };
